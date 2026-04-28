@@ -149,12 +149,17 @@
 
 **Required behavior:**
 - No live orders.
-- Paper credentials only.
-- Stale data forces no-trade eligibility.
-- Wide spread forces no-trade eligibility.
+- No direct Alpaca SDK/network dependency in unit-tested code.
+- Use an injected market data client protocol so credentials remain outside the deterministic core.
+- Stale data forces no-trade eligibility by raising `MarketDataStaleError` before strategy evaluation.
+- Crossed quotes fail before strategy evaluation.
+- Spread bps is deterministically computed when the payload does not supply it.
+
+**Status:** Completed in `hermes-momentum-trader` commit `f2320f7e5df9e8234d16c6351f064085a8963940` with `AlpacaMarketDataAdapter`, `build_market_snapshot`, injected fake-client tests, stale-data rejection, crossed-quote rejection, and spread-bps calculation. [Source: local repo verification, 2026-04-28]
 
 **Verification:**
 - Run mocked tests with no real credentials.
+- Full-suite verification completed with `. .venv/bin/activate && python -m pytest`; result: `31 passed in 0.05s`. [Source: local repo verification, 2026-04-28]
 
 ### Task 8: Add paper execution adapter
 
