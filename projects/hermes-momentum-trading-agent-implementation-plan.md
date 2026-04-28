@@ -174,9 +174,13 @@
 - Recompute risk per share and max size.
 - Enforce max trades per day, max open positions, max symbol exposure, and daily loss stop.
 - Dry-run mode is default.
+- Require an injected order client before any non-dry-run paper submission path.
+
+**Status:** Completed in `hermes-momentum-trader` commit `40460ba7eeb5f916f73d61f3e8ea58f741a0050e` with `ExecutionConfig`, `AccountState`, `ExecutionResult`, `PaperExecutionAdapter`, `execute_trade_plan`, dry-run default behavior, live-config rejection, recomputed risk sizing, daily/account/symbol safety gates, and injected-client-only paper submission. [Source: local repo verification, 2026-04-28]
 
 **Verification:**
 - Run mocked execution tests; no network calls in unit tests.
+- Full-suite verification completed with `. .venv/bin/activate && python -m pytest`; result: `39 passed in 0.05s`. [Source: local repo verification, 2026-04-28]
 
 ## Phase 5: Logging and analysis
 
