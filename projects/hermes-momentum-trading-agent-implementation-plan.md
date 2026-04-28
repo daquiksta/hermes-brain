@@ -76,17 +76,20 @@
 
 **Files:**
 - Modify: `src/hermes_momentum_trader/strategies.py`
-- Create: `tests/test_first_pullback_strategy.py`
+- Create: `tests/test_pullback_strategy.py`
 
 **Required behavior:**
 - Require impulse move and volume thresholds.
-- Require first pullback into EMA9/EMA20 or VWAP zone.
-- Reject if pullback is too deep or has too much volume.
-- Require bullish reversal signal and close above EMA9 if specified.
+- Require orderly first pullback into EMA9/VWAP context.
+- Reject if pullback is too deep.
+- Require reclaim above EMA9 and volume confirmation.
 - Compute stop at pullback low and targets from prior high / R multiple.
 
+**Status:** Completed in `hermes-momentum-trader` commit `0913bb19815e0833a51f8cbbf544fc42947bd597` with deterministic `evaluate_first_momentum_pullback`, six pullback strategy tests, and a full suite result of `18 passed in 0.04s`. [Source: local repo verification, 2026-04-28]
+
 **Verification:**
-- Run `python -m pytest tests/test_first_pullback_strategy.py -v`.
+- Run `python -m pytest tests/test_pullback_strategy.py -v`.
+- Full-suite verification completed with `. .venv/bin/activate && python -m pytest`. [Source: local repo verification, 2026-04-28]
 
 ## Phase 3: Hermes skill integration
 
