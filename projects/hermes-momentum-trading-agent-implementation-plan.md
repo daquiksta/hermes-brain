@@ -99,17 +99,23 @@
 
 **Files:**
 - Create: `~/.hermes/skills/trading/momentum-trader/SKILL.md`
+- Create: `skills/trading/momentum-trader/SKILL.md`
 - Create: `skills/trading/momentum-trader/examples/valid_breakout.json`
 - Create: `skills/trading/momentum-trader/examples/no_trade_ambiguous.json`
+- Create: `tests/test_momentum_trader_skill.py`
 
 **Required behavior:**
 - Never place orders.
 - Never invent strategy parameters.
 - Always output JSON only.
 - Default to `NO_TRADE` on ambiguity.
+- Preserve paper-only/no-live-execution boundary.
+
+**Status:** Completed in `hermes-momentum-trader` commit `d6e8f3c27e350bb931f319e36de411f1fcd907c5`; the skill was also installed locally as `momentum-trader` under `~/.hermes/skills/trading/momentum-trader`. [Source: local repo and skill verification, 2026-04-28]
 
 **Verification:**
-- Run fixture prompts through Hermes and validate output with `TradePlan` model.
+- Skill contract test verifies the safety phrases and examples. [Source: local repo verification, 2026-04-28]
+- `skill_view("momentum-trader")` loads the installed skill successfully. [Source: local skill verification, 2026-04-28]
 
 ### Task 6: Add LLM output validator
 
@@ -125,8 +131,11 @@
 - Oversized positions become `NO_TRADE`.
 - Mismatched symbol becomes `NO_TRADE`.
 
+**Status:** Completed in `hermes-momentum-trader` commit `d6e8f3c27e350bb931f319e36de411f1fcd907c5` with `validate_hermes_trade_plan_output`, strict JSON parsing, TradePlan schema enforcement, strategy allow-listing, expected-symbol enforcement, and max-size rejection. [Source: local repo verification, 2026-04-28]
+
 **Verification:**
 - Run `python -m pytest tests/test_hermes_client.py -v`.
+- Full-suite verification completed with `. .venv/bin/activate && python -m pytest`; result: `26 passed in 0.05s`. [Source: local repo verification, 2026-04-28]
 
 ## Phase 4: Alpaca paper integration
 
